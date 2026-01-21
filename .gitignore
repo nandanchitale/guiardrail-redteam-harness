@@ -1,0 +1,61 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+
+# =========================
+# Virtual Environment
+# =========================
+.venv/
+venv/
+ENV/
+env/
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# VS Code
+# =========================
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+
+# =========================
+# Logs / Runtime Output
+# =========================
+*.log
+logs/
+*.out
+*.tmp
+
+# =========================
+# Test / Result Artifacts
+# =========================
+results/
+reports/
+*.jsonl
+
+# =========================
+# OS / Editor Noise
+# =========================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# =========================
+# Ollama / Local Models
+# =========================
+.ollama/

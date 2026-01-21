@@ -1,0 +1,1 @@
+REFUSAL_MESSAGE = "I'm sorry, I can’t assist with that request."

@@ -1,0 +1,13 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Dracula Theme",
+    "explorer.confirmDragAndDrop": false,
+    "editor.fontFamily": "'FiraCode Nerd Font', 'Droid Sans Mono', 'monospace', monospace",
+    "python.defaultInterpreterPath": "/bin/python",
+    "terminal.integrated.profiles.linux": {
+        "zsh": {
+            "path": "usr/bin/zsh",
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "zsh"
+}
