@@ -7,15 +7,17 @@ import ai.redteam.model.AdversarialPrompt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.io.InputStream;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
-        AdversarialPrompt[] prompts =
-                mapper.readValue(new File("adversarial_prompts.json"),
-                        AdversarialPrompt[].class);
+        InputStream stream = Main.class.getClassLoader().getResourceAsStream("adversarial_prompts.json");
+        if(stream == null)
+            throw new RuntimeException("adversarial_prompts.json not found on classpath");
+        AdversarialPrompt[] prompts = mapper.readValue(stream, AdversarialPrompt[].class);
 
         LlmClient llm = new OllamaClient();
 
@@ -27,7 +29,11 @@ public class Main {
         for (AdversarialPrompt p : prompts) {
             String output = llm.generate(policy, p.prompt);
             boolean pass = OutcomeClassifier.passed(p.expected, output);
-
+            if(!pass){
+                System.out.println("---- Raw Output ----");
+                System.out.println(output);
+                System.out.println("--------------------");
+            }
             System.out.println(
                     p.id + " : " + (pass ? "PASS" : "FAIL")
             );
