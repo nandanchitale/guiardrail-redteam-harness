@@ -1,4 +1,4 @@
-package ai.redteam.guardrail;
+package org.ai.redteam.guardrail;
 
 import java.util.List;
 

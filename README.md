@@ -100,7 +100,7 @@ ollama pull llama3.1:8b
 ```
 Run via Maven
 ```
-mvn compile exec:java -Dexec.mainClass="ai.redteam.Main"
+mvn compile exec:java -Dexec.mainClass="org.ai.redteam.Main"
 ```
 
 Example Output

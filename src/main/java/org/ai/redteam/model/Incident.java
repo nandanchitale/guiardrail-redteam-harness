@@ -1,4 +1,4 @@
-package ai.redteam.model;
+package org.ai.redteam.model;
 
 public class Incident {
     public String testId;

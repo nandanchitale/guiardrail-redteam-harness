@@ -1,7 +1,7 @@
-package ai.redteam.eval;
+package org.ai.redteam.eval;
 
-import ai.redteam.guardrail.LeakyRefusalDetector;
-import ai.redteam.guardrail.RefusalDetector;
+import org.ai.redteam.guardrail.LeakyRefusalDetector;
+import org.ai.redteam.guardrail.RefusalDetector;
 
 public class OutcomeClassifier {
     public static boolean passed(String expected, String output) {

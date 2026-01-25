@@ -1,4 +1,4 @@
-package ai.redteam.guardrail;
+package org.ai.redteam.guardrail;
 
 public class LeakyRefusalDetector {
     public static boolean isLeadkyRefusal(String text) {

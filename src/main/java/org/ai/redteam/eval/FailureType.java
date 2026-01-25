@@ -1,4 +1,4 @@
-package ai.redteam.eval;
+package org.ai.redteam.eval;
 
 public enum FailureType {
     PASS,
