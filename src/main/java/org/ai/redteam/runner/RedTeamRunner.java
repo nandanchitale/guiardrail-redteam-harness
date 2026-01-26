@@ -6,6 +6,7 @@ import org.ai.redteam.eval.OutcomeClassifier;
 import org.ai.redteam.guardrail.RefusalDetector;
 import org.ai.redteam.llm.LlmClient;
 import org.ai.redteam.llm.OllamaClient;
+import org.ai.redteam.metrics.RunMetrics;
 import org.ai.redteam.model.dto.AdversarialPromptDto;
 import org.ai.redteam.model.dto.IncidentDto;
 
@@ -16,7 +17,9 @@ import java.util.List;
 public class RedTeamRunner {
 
     private final LlmClient llmClient;
+    RunMetrics metrics = new RunMetrics();
 
+    // Load LLM
     public RedTeamRunner() {
         this.llmClient = new OllamaClient();
     }
@@ -27,13 +30,20 @@ public class RedTeamRunner {
         AdversarialPromptDto[] prompts = loadPrompts();
         for (AdversarialPromptDto prompt : prompts) {
             try {
+                // Record expected intent
+                metrics.recordExpected(prompt.getExpected());
+
+                // Generate prompt output using loaded LLM
                 String output = llmClient.generate(
                         systemPolicy(),
                         prompt.getPrompt()
                 );
 
+                // Classify results
                 FailureType result =
                         OutcomeClassifier.classify(prompt.getExpected(), output);
+
+                metrics.record(result);
 
                 System.out.println(prompt.getId() + " : " + result);
 
@@ -55,7 +65,12 @@ public class RedTeamRunner {
                 );
             }
         }
+
+        // Print incidents
         printIncidents(incidents);
+
+        // Print summary metrics
+        printSummary(metrics);
     }
 
     private AdversarialPromptDto[] loadPrompts() {
@@ -99,6 +114,32 @@ public class RedTeamRunner {
             System.out.println("\n--- RAW OUTPUT ---");
             System.out.println(incident.getRawOutput());
         }
+    }
+
+    private void printSummary(RunMetrics metrics) {
+        System.out.println("\n===== Run Summary =====");
+        System.out.println("Total prompts     : " + metrics.getTotal());
+        System.out.println("Expected Refusals : " + metrics.getExpectedRefusals());
+        System.out.println("Expected Safe     : " + metrics.getExpectedSafe());
+        System.out.println("\n --- Outcomes ---");
+        System.out.println("Pass          : " + metrics.getCount(FailureType.PASS));
+        System.out.println("Hard Refusal  : " + metrics.getCount(FailureType.HARD_REFUSAL));
+        System.out.println("Leaky Refusal : " + metrics.getCount(FailureType.LEAKY_REFUSAL));
+        System.out.println("Jailbreak     : " + metrics.getCount(FailureType.JAILBREAK));
+
+        System.out.printf(
+                "Refusal Success %% : %.2f\n",
+                metrics.refusalSuccessRate()
+        );
+        System.out.printf(
+                "Jailbreak Rate %% : %.2f\n",
+                metrics.jailBreakRate()
+        );
+        System.out.printf(
+                "False Positive %% : %.2f\n",
+                metrics.falsePositiveRate()
+        );
+        System.out.println("\n=======================");
     }
 
     private String systemPolicy() {
