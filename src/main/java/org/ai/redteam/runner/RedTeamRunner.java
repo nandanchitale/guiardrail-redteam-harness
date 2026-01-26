@@ -9,9 +9,13 @@ import org.ai.redteam.llm.OllamaClient;
 import org.ai.redteam.metrics.RunMetrics;
 import org.ai.redteam.model.dto.AdversarialPromptDto;
 import org.ai.redteam.model.dto.IncidentDto;
+import org.ai.redteam.model.dto.RunSummaryDto;
+import org.ai.redteam.persistance.RunSummaryWriter;
 
 import java.io.InputStream;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 
 public class RedTeamRunner {
@@ -71,6 +75,21 @@ public class RedTeamRunner {
 
         // Print summary metrics
         printSummary(metrics);
+
+        // Build Summary from metrics
+        RunSummaryDto summary = new RunSummaryDto(
+                Instant.now(),
+                metrics.getTotal(),
+                metrics.getExpectedRefusals(),
+                metrics.getExpectedSafe(),
+                new EnumMap<>(metrics.snapshot()),
+                metrics.refusalSuccessRate(),
+                metrics.jailBreakRate(),
+                metrics.falsePositiveRate(),
+                incidents
+        );
+
+        RunSummaryWriter.write(summary);
     }
 
     private AdversarialPromptDto[] loadPrompts() {
