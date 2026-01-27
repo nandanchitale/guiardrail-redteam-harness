@@ -1,39 +1,70 @@
+####################################
+# Java / Maven
+####################################
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-.kotlin
+*.class
+*.jar
+*.war
+*.ear
+*.log
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
-*.ipr
+# JVM crash logs
+hs_err_pid*
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+####################################
+# Spring Boot
+####################################
+application-local.yml
+application-local.properties
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+####################################
+# Node / React / Vite
+####################################
+node_modules/
+dist/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-### VS Code ###
+####################################
+# Environment variables
+####################################
+.env
+.env.*
+!.env.example
+
+####################################
+# IDEs
+####################################
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
 .vscode/
+.history/
 
-### Mac OS ###
+####################################
+# OS
+####################################
 .DS_Store
+Thumbs.db
+
+####################################
+# Logs & temp
+####################################
+logs/
+tmp/
+*.tmp
+
+####################################
+# Red-team specific artifacts
+####################################
+runs/
+*.jsonl
