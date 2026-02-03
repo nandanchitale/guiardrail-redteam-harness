@@ -19,7 +19,7 @@ export interface RunSummary {
   expectedSafe: number;
   outcomeCounts: Record<FailureType, number>;
   refusalSuccessRate: number;
-  jailbreakRate: number;
+  jailBreakRate: number;
   falsePositiveRate: number;
   incidents: Incident[];
 }
