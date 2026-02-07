@@ -3,6 +3,7 @@ import './App.css'
 import { Overview } from './pages/Overview'
 import { RunHistory } from './pages/RunHistory'
 import { IncidentTable } from './pages/IncidentTable';
+import { RunDetail } from './pages/RunDetail';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Overview />} />
         <Route path="/runs" element={<RunHistory />} />
         <Route path="/runs/:index/incidents" element={<IncidentTable />} />
+        <Route path="/runs/:index/" element={<RunDetail />} />
       </Routes>
     </div>
   )
