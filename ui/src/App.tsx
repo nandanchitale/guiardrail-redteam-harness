@@ -4,7 +4,6 @@ import { Overview } from './pages/Overview'
 import { RunHistory } from './pages/RunHistory'
 import { IncidentTable } from './pages/IncidentTable';
 import { RunDetail } from './pages/RunDetail';
-import { RunComparision } from './pages/RunComparision';
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
         <Route path="/runs" element={<RunHistory />} />
         <Route path="/runs/:index/incidents" element={<IncidentTable />} />
         <Route path="/runs/:index/" element={<RunDetail />} />
-        <Route path="/runs/:index/compare" element={<RunComparision />} />
       </Routes>
     </div>
   )
