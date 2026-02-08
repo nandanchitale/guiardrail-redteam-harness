@@ -101,7 +101,12 @@ export function RunDetail() {
         </Link>
       </>
       )}
-    </div >
+
+      {/* Previous Run Comparision */}
+      <div style={{ marginTop: 16 }}>
+        <Link to={`/runs/${runIndex}/compare`}>Compare with Previous runs</Link>
+      </div>
+    </div>
   );
 }
 
